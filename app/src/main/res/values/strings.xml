@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CameraTextReader</string>
+
+    <string name="button_clicked">OK</string>
+</resources>
