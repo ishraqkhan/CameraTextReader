@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.lang.Object;
 
+//Used a google library for this mini-project
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
@@ -26,6 +27,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Instance Variables for the text reader
     SurfaceView cameraView;
     TextView textView;
     Button button;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //Make sure app grants permission to start camera
+        
         if (requestCode == requestCameraPermission) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             if (!textRecognizer.isOperational()) {
                 Log.w("MainActivity", "Detector dependencies are not yet available");
             } else {
+                // The camera that is going to read the text, I tested some of the features to get the size and resolution that I felt fit best
                 cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer).setFacing(CameraSource.CAMERA_FACING_BACK)
                         .setRequestedPreviewSize(1280, 1024)
                         .setRequestedFps(2.0f)
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                         cameraSource.start(cameraView.getHolder());
 
+                                        //If button is on, then camera will read text, otherwise no
                                         button.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
